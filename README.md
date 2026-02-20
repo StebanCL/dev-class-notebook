@@ -5,6 +5,8 @@ focused on learning Git commands and how version control works.
 
 ---
 
+# Basic Git Commands
+
 ## Git Commands – Bash
 
 When starting a new repository on GitHub, there are different commands that allow you to manage your project using Git in Bash.
@@ -91,16 +93,41 @@ This command downloads the latest changes from the remote repository and updates
 
 It is useful when working in teams or when you made changes directly from GitHub.
 
-Final Notes 🚀
+# 🌿 Branches and Tags
+## 🔹 git branch
+git branch
 
-Git is a powerful version control system that allows developers to:
+This command shows all existing branches in your repository.
 
-Track changes
+Branches allow you to work on new features without affecting the main project.
 
-Collaborate with others
+To create a new branch:
 
-Manage different versions of a project
+git branch new-feature
+## 🔹 git checkout
+git checkout new-feature
 
-Work safely without losing progress
+This command switches to another branch.
 
-This is one of my first steps into learning Git and improving my development workflow.
+You can also create and switch in one step:
+
+git checkout -b new-feature
+## 🔹 git merge
+git merge new-feature
+
+This command merges changes from one branch into another.
+
+For example, you can merge a feature branch into the main branch after finishing development.
+
+## 🔹 git tag
+git tag v1.0
+
+Tags are used to mark specific points in your project history, usually for releases.
+
+For example:
+
+v1.0 → First stable version
+
+v2.0 → Major update
+
+Tags help organize versions in a more professional way.
