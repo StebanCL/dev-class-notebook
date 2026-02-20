@@ -104,6 +104,11 @@ Branches allow you to work on new features without affecting the main project.
 To create a new branch:
 
 git branch new-feature
+
+# You can only see this on the new branch "testing-readme", this is how branches work
+
+- they keep your updates in a certain order so you can save every version of your code, now you formaly can check every single check per moment/Update in your branches, this is focused on keeping your versions controlled with their updates, changes, bug fixes or even mayor updates...
+
 ## 🔹 git checkout
 git checkout new-feature
 
