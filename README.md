@@ -131,3 +131,12 @@ v1.0 → First stable version
 v2.0 → Major update
 
 Tags help organize versions in a more professional way.
+
+# Branch Conflict
+
+Normally when youre updating you branches or mostly the main one you can merge it with another one if you prefer to release the branch version as the main one
+This will follow a path by itself where the new branch gets in to the main one and continues to follow the main path of the updates until you create a new diferent one.
+
+there can be some situations where you update the same line in your master branch as you did in the new branch and when you try to merge it there is gonna be an issue where you get the merge conflict, you can only update rows that are before the main row so they become part of the main one and if you try to merge it in the wrong way you are going to need to delete one the lines of your code or document where both of the updates were done in one of the branches you have created
+
+![BranchesConflict](/assets/Captura%20de%20pantalla%202026-02-20%20094013.png)
