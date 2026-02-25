@@ -1,94 +1,32 @@
-/* Reset básico para eliminar márgenes predeterminados */
+html {
+    background: black;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-family: 'Courier New';
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    color: #333;
+    width: 400px;
+    margin: 0 auto;
+    height: auto;
+    background: green;
 }
 
-/* Header con Flexbox */
-.main-header {
-    background: #2c3e50;
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.caja1 {
+    width: 200px;
+    height: 100px;
+    border: 2px solid green;
+    padding: 20px;
+    margin: 30px;
+    background: blue;
 }
 
-.main-header nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
-
-.main-header a {
-    color: white;
-    text-decoration: none;
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: #f4f4f4;
-}
-
-.btn-primary {
-    padding: 10px 20px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-primary:hover {
-    background: #2980b9;
-}
-
-/* Contenedor de tarjetas (Grid simple) */
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 2rem;
-}
-
-.card {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 2rem;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Footer */
-.main-footer {
-    text-align: center;
-    padding: 1rem;
-    background: #2c3e50;
-    color: white;
-}
-
-.card::before {
-    content: "★";
-    color: gold;
-    margin-right: 10px;
-}
-
-@keyframes aparecer {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.card {
-    animation: aparecer 0.8s ease-out;
+.caja2 {
+    width: 300px;
+    height: 50px;
+    border: 2px solid red;
+    padding: 20px;
+    margin: 30px;
+    background: yellow;
 }
