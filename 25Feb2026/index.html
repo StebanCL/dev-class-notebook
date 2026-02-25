@@ -1,36 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Index for CSS</title>
+    <title>Aprendiendo CSS</title>
     <link rel="stylesheet" href="/25Feb2026/styles.css">
 </head>
 <body>
-    <h1>Elemento para editar    
 
-    </h1>
-        <ul>
-            <li>
-            <h2>
-                Texto placeholder de subtitulo
-            </h2>
-        <p>ola</p>
-        <p>adios</p>
-        <p>talvez</p>
-        <p>depende</p>
-        <p>quizas</p>
-            </li>
+    <header class="main-header">
+        <h1>Bienvenido a mi sitio</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Dominando el CSS</h2>
+            <p>Este es un párrafo de prueba para practicar tipografía y espaciado.</p>
+            <button class="btn-primary">¡Haz clic aquí!</button>
+        </section>
+
+        <section class="cards-container">
+            <div class="card">Tarjeta 1</div>
+            <div class="card">Tarjeta 2</div>
+            <div class="card">Tarjeta 3</div>
+        </section>
+    </main>
+
+    <div class="layout">
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li class="active">Dashboard</li>
+                <li>Perfil</li>
+                <li>Configuración</li>
+            </ul>
+        </nav>
+    </aside>
     
-        <h3>Checking</h3>
-        </ul>
-
-    <div class="mi-clase-personalizada">
-        Este contenido tendrá los estilos definidos en CSS.
+    <main class="content">
+        <article class="card featured">
+            <h3>Título Destacado</h3>
+            <p>Este elemento usa pseudo-elementos.</p>
+        </article>
+        
+            <div class="card">Contenido 2</div>
+            <div class="card">Contenido 3</div>
+        </main>
     </div>
 
-    <p class="mi-clase-personalizada">
-        Puedes reutilizar la misma clase en diferentes elementos.
-    </p>
+    <footer class="main-footer">
+        <p>&copy; 2026 - Creado para aprender</p>
+    </footer>
+
 </body>
 </html>
