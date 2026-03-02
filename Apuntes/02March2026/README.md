@@ -240,3 +240,84 @@ DELIMITER ;
 CALL insert_libro(111222333, 'Nuevo Libro', 'Aventura', 350, 7);
 
 ![insert libro](/02March2026/assets/image10.png)
+
+
+scripts procedures: DELIMITER $$
+CREATE PROCEDURE listarSociosYPrestamos()
+BEGIN
+    SELECT s.SOC_NOMBRE, s.SOC_APELLIDO, p.PRES_ID, p.PRES_FECHA_PRESTAMO
+    FROM tabla_socio s
+    LEFT JOIN tabla_prestamo p ON s.SOC_NUMERO = p.SOC_COPIA_NUMERO;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE librosPrestadosConSocio()
+BEGIN
+    SELECT l.LIB_TITULO, s.SOC_NOMBRE, s.SOC_APELLIDO, p.PRES_FECHA_PRESTAMO
+    FROM tabla_libro l
+    INNER JOIN tabla_prestamo p ON l.LIB_ISBN = p.LIB_COPIA_ISBN
+    INNER JOIN tabla_socio s ON p.SOC_COPIA_NUMERO = s.SOC_NUMERO;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE insertarSocio(
+    IN num INT, IN nom VARCHAR(45), IN ape VARCHAR(45), IN dir VARCHAR(255), IN tel VARCHAR(10)
+)
+BEGIN
+    INSERT INTO tabla_socio (SOC_NUMERO, SOC_NOMBRE, SOC_APELLIDO, SOC_DIRECCION, SOC_TELEFONO)
+    VALUES (num, nom, ape, dir, tel);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE buscarLibroPorNombre(IN nombre_buscar VARCHAR(255))
+BEGIN
+    SELECT * FROM tabla_libro 
+    WHERE LIB_TITULO LIKE CONCAT('%', nombre_buscar, '%');
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE actualizarDatosSocio(
+    IN socio_id INT, IN nueva_dir VARCHAR(255), IN nuevo_tel VARCHAR(10)
+)
+BEGIN
+    UPDATE tabla_socio 
+    SET SOC_DIRECCION = nueva_dir, SOC_TELEFONO = nuevo_tel
+    WHERE SOC_NUMERO = socio_id;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE eliminarLibro(IN isbn_borrar BIGINT)
+BEGIN
+    -- Primero borraríamos dependencias si fuera necesario, 
+    -- o simplemente intentar borrar el libro:
+    DELETE FROM tabla_libro WHERE LIB_ISBN = isbn_borrar;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION totalSocios() RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total INT;
+    SELECT COUNT(*) INTO total FROM tabla_socio;
+    RETURN total;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION diasDePrestamo(isbn_libro BIGINT) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE dias INT;
+    SELECT DATEDIFF(PRES_FECHA_DEVOLUCION, PRES_FECHA_PRESTAMO) INTO dias
+    FROM tabla_prestamo
+    WHERE LIB_COPIA_ISBN = isbn_libro
+    LIMIT 1; -- Limitamos a 1 por si el libro se prestó varias veces
+    RETURN dias;
+END $$
+DELIMITER ;
