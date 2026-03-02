@@ -140,3 +140,105 @@ This will follow a path by itself where the new branch gets in to the main one a
 there can be some situations where you update the same line in your master branch as you did in the new branch and when you try to merge it there is gonna be an issue where you get the merge conflict, you can only update rows that are before the main row so they become part of the main one and if you try to merge it in the wrong way you are going to need to delete one the lines of your code or document where both of the updates were done in one of the branches you have created
 
 ![BranchesConflict](/assets/Captura%20de%20pantalla%202026-02-20%20094013.png)
+
+
+27 - Feb - 2026
+
+⚙️ Advanced Configuration & Identity
+Before making commits, Git needs to know who is responsible for the changes.
+
+🔹 git config
+This sets your identity globally on your machine.
+
+Bash
+# Set your name and email (Required for commits)
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Check your current configuration
+git config --list
+🔹 Managing Credentials (Logout/Security)
+If you are using a shared computer and want to remove your data and credentials safely:
+
+Unset Identity: Remove your name and email from the global config.
+
+Bash
+git config --global --unset-all user.name
+git config --global --unset-all user.email
+Clear Saved Passwords: * Windows: Go to Control Panel > User Accounts > Credential Manager > Windows Credentials and remove entries related to git:https://github.com.
+
+Terminal (Universal): Tell Git to stop remembering your credentials.
+
+Bash
+git config --global --unset credential.helper
+🌐 Remote Repository Management
+Commands to manage the link between your local folder and servers like GitHub.
+
+🔹 git remote
+Bash
+# Add a new remote connection
+git remote add origin https://github.com/username/repo.git
+
+# Change the URL of an existing remote
+git remote set-url origin https://github.com/username/new-repo.git
+
+# Remove a remote connection
+git remote remove origin
+
+# List all connected remotes and their URLs
+git remote -v
+🌿 Modern Branching & Navigation
+While git checkout is classic, Git recently introduced switch and restore to make commands more intuitive.
+
+🔹 git switch
+Designed specifically for moving between branches.
+
+Bash
+# Switch to an existing branch
+git switch main
+
+# Create a new branch and switch to it immediately
+git switch -c feature-name
+🔹 git restore
+Used to undo changes in your working directory.
+
+Bash
+# Discard changes in a specific file (revert to last commit)
+git restore filename.txt
+
+# Unstage a file (remove it from the 'git add' area)
+git restore --staged filename.txt
+🏷️ Advanced Tagging
+In your README, you mentioned creating tags. However, tags are not automatically sent to GitHub when you push code.
+
+Bash
+# Create a tag
+git tag v1.0
+
+# Push a specific tag to GitHub
+git push origin v1.0
+
+# Push ALL local tags to GitHub at once
+git push origin --tags
+
+# Delete a local tag
+git tag -d v1.0
+🧹 Cleanup & Reset
+To keep your project history clean or fix mistakes.
+
+🔹 git reset
+Bash
+# Undo the last commit but keep your work in the files (Soft)
+git reset --soft HEAD~1
+
+# DELETE the last commit and all changes in the files (Hard - Dangerous!)
+git reset --hard HEAD~1
+🔹 git clean
+Removes untracked files (files that are not yet added to Git) to keep your folder tidy.
+
+Bash
+# See what would be deleted
+git clean -n
+
+# Force delete untracked files and directories
+git clean -fd
