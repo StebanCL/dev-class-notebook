@@ -1,0 +1,1 @@
+were learning today about how to use elements of css and the flexbox model like using the float for some sections in the screen so they try to find a space in the page to stay and the fixed property too to keep a section in the screen without moving

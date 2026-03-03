@@ -1,0 +1,33 @@
+
+#fijo_izquierda{
+    position:fixed;
+    left: 10%;
+    top:50px;
+    width: 100px;
+    height: 100px;
+    border:#663366 5px double;
+}
+#fijo_derecha{
+    position:fixed;
+    right: 10%;
+    top:50px;
+    width: 100px;
+    height: 100px;
+    border:#663366 5px double;
+}
+#columna{
+    width:50%;
+    margin:auto;
+}
+.verde, .azul{
+    height: 500px;
+    border:#006666 5pc dashed;
+    border-width: 0 5px 5px 5px;
+    position: relative;
+}
+.verde{
+    background-color: #66CC99;
+}
+.azul{
+    background-color: #6699FF;
+}

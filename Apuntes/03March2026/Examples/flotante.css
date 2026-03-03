@@ -1,0 +1,23 @@
+#cabecera{
+    width: 99.5%;
+    height: 80px;
+    background-color: royalblue;
+}
+#columna_izquierda{
+    float: left;
+    width: 30%;
+    height: 480px;
+    background-color: sandybrown;
+}
+#columna_derecha{
+    float:left;
+    width: 69.5%;
+    height: 480px;
+    background-color: lightgreen;
+}
+#pie{
+    clear:both;
+    width: 99.5%;
+    height: 80px;
+    background-color: violet;
+}
