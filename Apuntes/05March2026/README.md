@@ -163,3 +163,70 @@ DELETE FROM tabla_socio WHERE SOC_NUMERO = 13;
 
 SELECT * FROM audi_socio WHERE audi_accion = 'Registro eliminado';
 ```
+
+```sql
+CREATE TABLE audi_libro (
+    id_audi_lib INT(10) AUTO_INCREMENT,
+    libIsbn_audi BIGINT(20),
+    libTitulo VARCHAR(255),
+    libGenero VARCHAR(20),
+    libPaginas INT(11),
+    libDiasPres TINYINT(4),
+    audi_fechaModificacion DATETIME,
+    audi_usuario VARCHAR(45),
+    audi_accion VARCHAR(45),
+    PRIMARY KEY (id_audi_lib)
+);
+
+-- trigger
+
+DELIMITER //
+
+DROP TRIGGER IF EXISTS libros_after_insert//
+
+CREATE TRIGGER libros_after_insert 
+AFTER INSERT ON tabla_libro 
+FOR EACH ROW
+BEGIN
+    INSERT INTO audi_libro(
+        libIsbn_audi,
+        libTitulo,
+        libGenero,
+        libPaginas,
+        libDiasPres,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        NEW.LIB_ISBN,
+        NEW.LIB_TITULO,
+        NEW.LIB_GENERO,
+        NEW.LIB_NUM_PAGINAS,
+        NEW.LIB_DIAS_PRESTAMO,
+        NOW(),
+        CURRENT_USER(),
+        'Se registró un nuevo libro'
+    );
+END//
+
+DELIMITER ;
+
+-- testing it
+
+INSERT INTO tabla_libro (
+    LIB_ISBN, 
+    LIB_TITULO, 
+    LIB_GENERO, 
+    LIB_NUM_PAGINAS, 
+    LIB_DIAS_PRESTAMO
+) 
+VALUES (
+    9788437604947, 
+    'Don Quijote de la Mancha', 
+    'Clásico', 
+    1050, 
+    20
+);
+
+```

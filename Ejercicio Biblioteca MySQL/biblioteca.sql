@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 02-03-2026 a las 17:04:27
+-- Tiempo de generación: 05-03-2026 a las 17:35:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -90,6 +90,18 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `diasDePrestamo` (`isbn_libro` BIGINT
     RETURN dias;
 END$$
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `DIAS_EN_PRESTAMO` (`P_LIB_ISBN` BIGINT) RETURNS INT(11) DETERMINISTIC BEGIN
+DECLARE DIAS INT;
+
+SELECT DATEDIFF(PRES_FECHA_DEVOLUCION, PRES_FECHA_PRESTAMO)
+INTO DIAS
+FROM tabla_prestamo
+WHERE LIB_COPIA_ISBN = P_LIB_ISBN
+LIMIT 1;
+
+RETURN DIAS;
+END$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `totalSocios` () RETURNS INT(11) DETERMINISTIC BEGIN
     DECLARE total INT;
     SELECT COUNT(*) INTO total FROM tabla_socio;
@@ -97,6 +109,61 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `totalSocios` () RETURNS INT(11) DETE
 END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `audi_libro`
+--
+
+CREATE TABLE `audi_libro` (
+  `id_audi_lib` int(10) NOT NULL,
+  `libIsbn_audi` bigint(20) DEFAULT NULL,
+  `libTitulo` varchar(255) DEFAULT NULL,
+  `libGenero` varchar(20) DEFAULT NULL,
+  `libPaginas` int(11) DEFAULT NULL,
+  `libDiasPres` tinyint(4) DEFAULT NULL,
+  `audi_fechaModificacion` datetime DEFAULT NULL,
+  `audi_usuario` varchar(45) DEFAULT NULL,
+  `audi_accion` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `audi_libro`
+--
+
+INSERT INTO `audi_libro` (`id_audi_lib`, `libIsbn_audi`, `libTitulo`, `libGenero`, `libPaginas`, `libDiasPres`, `audi_fechaModificacion`, `audi_usuario`, `audi_accion`) VALUES
+(1, 9788437604947, 'Don Quijote de la Mancha', 'Clásico', 1050, 20, '2026-03-05 09:34:48', 'root@localhost', 'Se registró un nuevo libro');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `audi_socio`
+--
+
+CREATE TABLE `audi_socio` (
+  `id_audi` int(10) NOT NULL,
+  `socNumero_audi` int(11) DEFAULT NULL,
+  `socNombre_anterior` varchar(45) DEFAULT NULL,
+  `socApellido_anterior` varchar(45) DEFAULT NULL,
+  `socDireccion_anterior` varchar(255) DEFAULT NULL,
+  `socTelefono_anterior` varchar(10) DEFAULT NULL,
+  `socNombre_nuevo` varchar(45) DEFAULT NULL,
+  `socApellido_nuevo` varchar(45) DEFAULT NULL,
+  `socDireccion_nuevo` varchar(255) DEFAULT NULL,
+  `socTelefono_nuevo` varchar(10) DEFAULT NULL,
+  `audi_fechaModificacion` datetime DEFAULT NULL,
+  `audi_usuario` varchar(45) DEFAULT NULL,
+  `audi_accion` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `audi_socio`
+--
+
+INSERT INTO `audi_socio` (`id_audi`, `socNumero_audi`, `socNombre_anterior`, `socApellido_anterior`, `socDireccion_anterior`, `socTelefono_anterior`, `socNombre_nuevo`, `socApellido_nuevo`, `socDireccion_nuevo`, `socTelefono_nuevo`, `audi_fechaModificacion`, `audi_usuario`, `audi_accion`) VALUES
+(1, 13, 'Pedro', 'Páramo', 'Calle Falsa 123', '5551234', 'Pedro', 'Páramo', 'Calle 72 # 2', '2928088', '2026-03-05 07:29:07', 'root@localhost', 'Actualización'),
+(2, 13, 'Pedro', 'Páramo', 'Calle 72 # 2', '2928088', NULL, NULL, NULL, NULL, '2026-03-05 08:10:07', 'root@localhost', 'Registro eliminado');
 
 -- --------------------------------------------------------
 
@@ -158,8 +225,88 @@ INSERT INTO `tabla_libro` (`LIB_ISBN`, `LIB_TITULO`, `LIB_GENERO`, `LIB_NUM_PAGI
 (8642097531, 'El Reloj de Arena Infinito', 'novela', 321, 7),
 (8888888888, 'La Ciudad de los Susurros', 'Misterio', 274, 1),
 (9517530862, 'Las Crónicas del Eco Silencioso', 'fantasía', 448, 7),
+(9788437604, 'Don Quijote de la Mancha', 'Clásico', 1050, 20),
 (9876543210, 'El Laberinto de los Recuerdos', 'cuento', 412, 7),
 (9999999999, 'El Enigma de los Espejos Rotos', 'romance', 156, 7);
+
+--
+-- Disparadores `tabla_libro`
+--
+DELIMITER $$
+CREATE TRIGGER `after_delete_libro` AFTER DELETE ON `tabla_libro` FOR EACH ROW BEGIN
+    INSERT INTO audi_libro(
+        libIsbn_audi,
+        libTitulo,
+        libGenero,
+        libPaginas,
+        libDiasPres,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        OLD.LIB_ISBN,
+        OLD.LIB_TITULO,
+        OLD.LIB_GENERO,
+        OLD.LIB_NUM_PAGINAS,
+        OLD.LIB_DIAS_PRESTAMO,
+        NOW(),
+        CURRENT_USER(),
+        'Se elimino el libro'
+    );
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_update_libro` AFTER UPDATE ON `tabla_libro` FOR EACH ROW BEGIN
+    INSERT INTO audi_libro(
+        libIsbn_audi,
+        libTitulo,
+        libGenero,
+        libPaginas,
+        libDiasPres,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        NEW.LIB_ISBN,
+        NEW.LIB_TITULO,
+        NEW.LIB_GENERO,
+        NEW.LIB_NUM_PAGINAS,
+        NEW.LIB_DIAS_PRESTAMO,
+        NOW(),
+        CURRENT_USER(),
+        'Se actualizo un libro'
+    );
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `libros_after_insert` AFTER INSERT ON `tabla_libro` FOR EACH ROW BEGIN
+    INSERT INTO audi_libro(
+        libIsbn_audi,
+        libTitulo,
+        libGenero,
+        libPaginas,
+        libDiasPres,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        NEW.LIB_ISBN,
+        NEW.LIB_TITULO,
+        NEW.LIB_GENERO,
+        NEW.LIB_NUM_PAGINAS,
+        NEW.LIB_DIAS_PRESTAMO,
+        NOW(),
+        CURRENT_USER(),
+        'Se registró un nuevo libro'
+    );
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -219,8 +366,69 @@ INSERT INTO `tabla_socio` (`SOC_NUMERO`, `SOC_NOMBRE`, `SOC_APELLIDO`, `SOC_DIRE
 (9, 'Luis', 'Hernández', 'Avenida de la Montaña 890, Monte Verde, Granada', '6101234567'),
 (10, 'Andrea', 'García', 'Calle del Sol 432, La Colina, Zaragoza', '1112345678'),
 (11, 'Alejandro', 'Torres', 'Carrera del Oeste 765, Ciudad Nueva, Murcia', '4951234567'),
-(12, 'Sofía', 'Morales', 'Avenida del Mar 098, Costa Brava, Gijón', '5512345678'),
-(13, 'Pedro', 'Páramo', 'Calle Falsa 123', '5551234');
+(12, 'Sofía', 'Morales', 'Avenida del Mar 098, Costa Brava, Gijón', '5512345678');
+
+--
+-- Disparadores `tabla_socio`
+--
+DELIMITER $$
+CREATE TRIGGER `socios_after_delete` AFTER DELETE ON `tabla_socio` FOR EACH ROW BEGIN
+    INSERT INTO audi_socio(
+        socNumero_audi,
+        socNombre_anterior,
+        socApellido_anterior,
+        socDireccion_anterior,
+        socTelefono_anterior,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        OLD.SOC_NUMERO,
+        OLD.SOC_NOMBRE,
+        OLD.SOC_APELLIDO,
+        OLD.SOC_DIRECCION,
+        OLD.SOC_TELEFONO,
+        NOW(),
+        CURRENT_USER(),
+        'Registro eliminado'
+    );
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `socios_before_update` BEFORE UPDATE ON `tabla_socio` FOR EACH ROW BEGIN
+    INSERT INTO audi_socio(
+        socNumero_audi,
+        socNombre_anterior,
+        socApellido_anterior,
+        socDireccion_anterior,
+        socTelefono_anterior,
+        socNombre_nuevo,
+        socApellido_nuevo,
+        socDireccion_nuevo,
+        socTelefono_nuevo,
+        audi_fechaModificacion,
+        audi_usuario,
+        audi_accion
+    )
+    VALUES(
+        NEW.SOC_NUMERO,    -- En tu diagrama es SOC_NUMERO
+        OLD.SOC_NOMBRE,    -- En tu diagrama es SOC_NOMBRE
+        OLD.SOC_APELLIDO,  -- En tu diagrama es SOC_APELLIDO
+        OLD.SOC_DIRECCION, -- En tu diagrama es SOC_DIRECCION
+        OLD.SOC_TELEFONO,  -- En tu diagrama es SOC_TELEFONO
+        NEW.SOC_NOMBRE,
+        NEW.SOC_APELLIDO,
+        NEW.SOC_DIRECCION,
+        NEW.SOC_TELEFONO,
+        NOW(),
+        CURRENT_USER(),
+        'Actualización'
+    );
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -260,6 +468,18 @@ INSERT INTO `tabla_tipoautores` (`COPIA_ISBN`, `COPIA_AUTOR`, `TIPO_AUTOR`) VALU
 --
 
 --
+-- Indices de la tabla `audi_libro`
+--
+ALTER TABLE `audi_libro`
+  ADD PRIMARY KEY (`id_audi_lib`);
+
+--
+-- Indices de la tabla `audi_socio`
+--
+ALTER TABLE `audi_socio`
+  ADD PRIMARY KEY (`id_audi`);
+
+--
 -- Indices de la tabla `tabla_autor`
 --
 ALTER TABLE `tabla_autor`
@@ -293,6 +513,22 @@ ALTER TABLE `tabla_tipoautores`
   ADD KEY `COPIA_AUTOR` (`COPIA_AUTOR`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `audi_libro`
+--
+ALTER TABLE `audi_libro`
+  MODIFY `id_audi_lib` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `audi_socio`
+--
+ALTER TABLE `audi_socio`
+  MODIFY `id_audi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -301,7 +537,7 @@ ALTER TABLE `tabla_tipoautores`
 --
 ALTER TABLE `tabla_prestamo`
   ADD CONSTRAINT `tabla_prestamo_ibfk_1` FOREIGN KEY (`SOC_COPIA_NUMERO`) REFERENCES `tabla_socio` (`SOC_NUMERO`),
-  ADD CONSTRAINT `tabla_prestamo_ibfk_2` FOREIGN KEY (`LIB_COPIA_ISBN`) REFERENCES `tabla_libro` (`LIB_ISBN`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `tabla_prestamo_ibfk_2` FOREIGN KEY (`LIB_COPIA_ISBN`) REFERENCES `tabla_libro` (`LIB_ISBN`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tabla_tipoautores`
