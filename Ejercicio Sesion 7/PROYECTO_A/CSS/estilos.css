@@ -1,168 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 *{
-box-sizing: border-box;
-/*controlar dimensiones sin que se vean afectadas
-por el border o por el padding*/
-margin:0;
-padding: 0;
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
 }
+
 /*clases especiales*/
 .borde{
-border:1px solid gray;
-}
-.titulo{
-width: 100%;
-height: 50px;
-padding: 10px;
-background-color: rgba(0,0,0);
-font-family: 'Dancing Script', cursive;
-color:#fff;
-text-align: center;
-/*aumentar el titulo puede ser h1 pero...*/
-font-size: 25px;/*puede ser 2em*/
+    border:1px solid #00FF00; /* Borde neón */
 }
 
-/*contenedor para pantallas grandes*/
-.contenedor{
-width: 99%;
-max-width: 1280px;
-margin:auto; /*quede centrado*/
+.titulo{
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    background-color: #000;
+    font-family: 'Orbitron', sans-serif;
+    color: #00FF00;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 2px;
 }
+
+/*contenedor*/
+.contenedor{
+    width: 99%;
+    max-width: 1280px;
+    margin:auto;
+    border: 2px solid #00FF00;
+}
+
 /*cuerpo*/
 body{
-
-background-image: url('../img/fondo-pagina.jpg');
-background-size: 100% 100%;
-background-attachment: fixed;/*la imagen se quede fija*/
-font-family: 'Chelsea Market', cursive;
+    background-color: #050505;
+    background-image: url('../img/ALIENS.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    font-family: 'VT323', monospace;
+    color: #00FF00;
 }
+
 /*navegador*/
 nav{
-width: 100%;
-height: 50px;
-background-color: #DB9F16;
+    width: 100%;
+    height: 50px;
+    background-color: #000;
 }
-/*La suma da 100=65+15+20*/
+
 .logo{
-width: 20%;
-height: 100%;
-float: left;
-padding: 5px;/*no se pegue la imagen logo tanto al borde*/
-/*aplica para la imagen y letras*/
-text-align: center;
+    width: 20%;
+    height: 100%;
+    float: left;
+    padding: 5px;
+    text-align: center;
 }
-/*en su interior a otra caja cuando esten separados*/
+
 .logo img{
-/*width: auto;*/
-/*height: 100%; de los 50px*/
-width: 40px;
-height: 40px;
-border-radius: 50%;/*la imagen sea curva*/
-/*Si se quiere rendondez total se tiene que
-calcular en el ancho y alto en medida
-en pixeles. Teniendo en cuenta la
-altura nav 50px y padding de 5px*/
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    filter: sepia(1) hue-rotate(90deg) brightness(1.5);
 }
+
 .navegacion{
-width: 65%;
-height: 100%;
-float: left;
+    width: 65%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
+
+.navegacion a, .ingreso a {
+    text-decoration: none;
+    color: #00FF00;
+    font-size: 20px;
+}
+
 .ingreso{
-width: 15%;
-height: 100%;
-float: left;
+    width: 15%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111;
 }
+
 /*encabezado*/
 header{
-width: 100%;
-height: 550px;
-/*depende del monitor*/
-background-image: url('../img/fondo-header.jpg');
-background-size:100% 100%;
-
+    width: 100%;
+    height: 550px;
+    background-image: url('../img/fondo-header.jpg');
+    background-size:100% 100%;
+    filter: grayscale(1) contrast(1.2) brightness(0.5);
 }
+
 /*portafolio*/
-/*#titulo1{
-width: 100%;
-height: 50px;
-}*/
-main#portafolio{/*tiene que estar pegado para que sepa que es de esa etiqueta
-si se separa pensara que es de alguna del interior*/
-width: 100%;
-height: 550px;
-background: rgb(255,255,255,0.9);/*transparencia 0.4*/
+main#portafolio{
+    width: 100%;
+    height: 550px;
+    background: rgba(0, 0, 0, 0.9);
 }
-.div-porta{
-width: 33.33%;
-height:100%;
-float: left;
-text-align: center;
-padding: 50px;
-font-size: 13px;
-}
-.div-porta img{
-width: 150px;
-height: 150px;
-margin: 40px 0px 0px 0px;
-border-radius: 50%;
-}
-/*en div porta hay una etiqueta p que quiero este justificada*/
-.div-porta p{
-margin: 40px 0px 0px 0px;/*cuando hay 2 medidas afecta primero
-arriba y abajo y la otra es izq y der*/
-/*margin-top: 20px;*/
-text-align: justify;
-}
-/*quinenes-somos*/
-/*#titulo2{
-width: 100%;
-height: 50px;
-}*/
-section#quienes-somos{
-width: 100%;
-height: 550px;
-}
-.fila{
-width: 100%;
-height: 33.33%;
-}
-.col-ext{
-width: 40%;
-height: 100%;
 
-float: left;
+.div-porta{
+    width: 33.33%;
+    height:100%;
+    float: left;
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
 }
+
+.div-porta h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.div-porta img{
+    width: 150px;
+    height: 150px;
+    margin: 40px 0px 0px 0px;
+    border-radius: 0%; /* Cuadrado militar */
+    border: 1px solid #00FF00;
+}
+
+.div-porta p{
+    margin: 40px 0px 0px 0px;
+    text-align: justify;
+}
+
+.volver{
+    float: right;
+    color: #00FF00;
+    text-decoration: none;
+}
+
+/*quienes-somos*/
+section#quienes-somos{
+    width: 100%;
+    height: 550px;
+    background-color: #000;
+}
+
+.fila{
+    width: 100%;
+    height: 33.33%;
+    display: flex;
+    align-items: center;
+}
+
+.col-ext{
+    width: 40%;
+    height: 100%;
+    float: left;
+    padding: 25px;
+}
+
 .col-cen{
-width: 20%;
-height: 100%;
-float: left;
+    width: 20%;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.col-cen img {
+    width: 80%;
+    border-radius: 50%;
+    border: 2px solid #00FF00;
+}
+
 /*contactenos*/
-/*#titulo3{
-width: 100%;
-height: 50px;
-}*/
 section#contactenos{
-width: 100%;
-height: 550px;
+    width: 100%;
+    height: 550px;
+    background-color: #000;
 }
+
 .div-contacto{
-width: 50%;
-height: 100%;
-float: left;
+    width: 50%;
+    height: 100%;
+    float: left;
+    padding: 20px;
 }
-.div-arr{
-width: 100%;
-height:70%;
+
+.div-contacto h3{ text-align: center; margin-bottom: 10px; }
+.div-contacto hr{ border-color: #00FF00; margin-bottom: 20px; }
+
+/* Formulario */
+.fila-form{ display: flex; justify-content: space-between; }
+.campo-corto{ width: 48%; }
+.ancho-total{ width: 100%; }
+
+form label { display: block; margin-top: 10px; }
+form input, form textarea {
+    background: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    font-family: 'VT323';
+    padding: 5px;
 }
-.div-aba{
-width: 100%;
-height:30%;
+form textarea { height: 80px; }
+form button {
+    background: #0f0;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-family: 'Orbitron';
+    cursor: pointer;
+    width: 100%;
 }
+
+.div-arr{ width: 100%; height:70%; }
+.img-mapa{ width: 100%; height: 100%; object-fit: cover; filter: invert(1) hue-rotate(90deg); }
+
+.div-aba{ width: 100%; height:30%; padding: 10px; text-align: center; position: relative; }
+.alerta{ color: #ff0000; font-weight: bold; }
+.redes{ margin-top: 5px; }
+.redes img{ width: 25px; margin: 0 5px; filter: brightness(2); }
+.volver-aba{ position: absolute; bottom: 5px; right: 10px; color: #0f0; text-decoration: none; }
+
 /*footer*/
 footer{
-width: 100%;
-height: 50px;
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    border-top: 1px solid #0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-size: 14px;
 }
