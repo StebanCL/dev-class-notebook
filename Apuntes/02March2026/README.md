@@ -1,5 +1,3 @@
-Aquí tienes el código completo en formato Markdown raw. Puedes copiarlo y pegarlo directamente en tu archivo README.md.
-
 Markdown
 # MySQL Procedures and Functions Guide
 
