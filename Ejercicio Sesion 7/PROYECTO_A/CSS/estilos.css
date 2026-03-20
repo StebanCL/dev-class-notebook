@@ -138,8 +138,11 @@ nav ul li ul li a {
 /* Ajuste específico para que el Nivel 2 no se solape con el Nivel 1 */
 nav ul li ul li ul {
     top: 0;
-    left: 100%; /* Los empuja a la derecha del menú anterior */
+    left: 100%; 
     margin-left: 0; 
+    display: none;
+    position: absolute;
+    z-index: 1200;
 }
 
 /* Estilo especial para el área de Ingreso */
@@ -153,12 +156,20 @@ nav ul li ul li ul {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* ESTO ES CLAVE: Define de dónde cuelga el menú */
 }
 
-/* Esto hace que el menú de la derecha se despliegue hacia la izquierda */
+/* Busca esta sección en tu CSS y actualízala */
 .ingreso ul li ul {
+    top: 100%;    /* Empuja el menú al borde inferior de la barra de 80px */
+    right: 0;     /* Lo alinea al borde derecho para que no se salga de la pantalla */
     left: auto;
-    right: 0;
+    position: absolute;
+    display: none;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1100;
 }
 
 .ingreso a {
