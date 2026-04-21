@@ -1,11 +1,20 @@
-.container { margin-top: 20px; }
+/* Estilos para visualizar la estructura de la rejilla */
+.custom-col {
+    border: 2px solid #000; /* Bordes negros gruesos como en la imagen */
+    padding: 10px;
+    text-align: left;
+    background-color: #fff;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
 
-.row { margin-bottom: 10px; }
+/* Ajuste para que las filas no tengan espacios entre columnas (gap) si se desea exacto a la tabla */
+.row {
+    margin-bottom: 20px;
+}
 
-/* Estilo para que los bloques se vean como tablas */
-.box {
-    border: 2px solid black;
-    text-align: center;
+h2 {
+    margin-top: 30px;
     font-weight: bold;
-    padding: 5px;
 }
