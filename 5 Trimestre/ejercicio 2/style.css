@@ -1,0 +1,11 @@
+.container { margin-top: 20px; }
+
+.row { margin-bottom: 10px; }
+
+/* Estilo para que los bloques se vean como tablas */
+.box {
+    border: 2px solid black;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+}
