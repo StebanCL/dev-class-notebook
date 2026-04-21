@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Steban">
+    <title>Actividad Bootstrap Grid</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        .row div {
+            border: 1px solid #fff;
+            text-align: center;
+            padding: 20px 0;
+            color: #333;
+            font-weight: bold;
+        }
+        .bg-pink { background-color: #fce4ec; }
+        .bg-yellow { background-color: #fff176; }
+        .bg-purple { background-color: #ede7f6; }
+        .bg-blue { background-color: #b2ebf2; }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h2 class="mb-4">Actividad: Sistema de Rejillas</h2>
+
+        <div class="row">
+            <div class="col-md-6 bg-pink">.col-md-6</div>
+            <div class="col-md-6 bg-pink">.col-md-6</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 bg-yellow">.col-md-4</div>
+            <div class="col-md-4 bg-yellow">.col-md-4</div>
+            <div class="col-md-4 bg-yellow">.col-md-4</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 bg-purple">.col-md-3</div>
+            <div class="col-md-6 bg-pink">.col-md-6</div>
+            <div class="col-md-3 bg-purple">.col-md-3</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 bg-yellow">.col-md-4</div>
+            <div class="col-md-8 bg-blue">.col-md-8</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
